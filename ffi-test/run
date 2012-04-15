@@ -1,0 +1,9 @@
+#! /bin/bash
+DIR=$(dirname $0)
+cd $DIR && make clean && make || exit 1
+export LD_LIBRARY_PATH=.
+./enum || exit 1
+../bin/rbx ./ffi-enum.rb
+./callback || exit 1
+../bin/rbx ./ffi-callback.rb
+#../bin/rbx -Xjit.call_til_compile=10 -Xjit.call_inline_threshold=10 ./ffi-jit.rb
